@@ -21,7 +21,7 @@ class UserController {
         });
     }
 
-    insertUser(req, res) {        
+    insertUser(req, res) {
         console.log('*** insertUser');
         console.log(req.body);
         userRepo.insertUser(req.body, (err, user) => {
