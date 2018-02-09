@@ -22,7 +22,7 @@ class UserController {
     }
 
     insertUser(req, res) {
-        console.log('*** insertUser123');
+        console.log('*** insertUser');
         console.log(req.body);
         userRepo.insertUser(req.body, (err, user) => {
             if(err) {
