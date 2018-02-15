@@ -10,10 +10,11 @@
   "author": "Imran Ashraf",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "mongoose": "^4.11.1"
+    "jwt-simple": "^0.5.1",
+    "mongoose": "^5.0.4"
   },
   "devDependencies": {
     "eslint": "^4.17.0",
