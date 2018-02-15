@@ -1,12 +1,12 @@
 const userRepo = require('../../../lib/repositories/userRepository'),
-util = require('util');
+util = require('util'),
+verifyToken = require('../../../lib/veriyToken');
 
 class UserController {
 
     constructor(router) {
-        router.get('/', this.getUsers.bind(this));
-        router.post('/', this.insertUser.bind(this));
-        router.post('/login', this.login.bind(this));
+        router.get('/', verifyToken, this.getUsers.bind(this));
+        router.post('/', verifyToken, this.insertUser.bind(this));
     }
 
     getUsers(req, res) {
@@ -35,20 +35,6 @@ class UserController {
                 res.json({ status: true, error: null, user: user });
             }
         });
-    }
-
-    login(req, res) {
-        console.log(`*** login`);
-        console.log(req.body);
-        userRepo.login(req.body, (err, user) => {
-            if (err) {
-                console.log('*** login error:' + util.inspect(err));
-                res.json({status: false, error: 'Login failed' });
-            } else {
-                console.log('*** login ok');
-                res.json({ status: true, error: null, data: user });
-            }
-        })
     }
 }
 
