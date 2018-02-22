@@ -1,5 +1,6 @@
 const express   = require('express'),
     bodyParser  = require('body-parser'),
+    session     = require('client-sessions'),
 
     router      = require('./routes/router'),
     database    = require('./lib/database'),
@@ -24,6 +25,20 @@ class Server {
     initExpressMiddleWare() {
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json());
+
+        // session
+        app.use(session({
+            cookieName: 'session',
+            secret: 'eg[isfd-8yF9-7w23d565675dfg15df{}+Ijsli;;to8',
+            // how long the session will live in milliseconds. After that the cookie is invalidated
+            duration: 30 * 60 * 1000,
+            // allow the user to lengthen their session, if the session is 28 minutes old and the user sends
+            // another request activeDuration will extend the session's life. In this case 5 minutes
+            activeDuration: 5 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+            ephemeral: true
+        }));
         
         process.on('uncaughtException', (err) => {
             if (err) console.log(err, err.stack);

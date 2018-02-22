@@ -10,13 +10,14 @@ class AuthController  {
     login(req, res) {        
         console.log(`*** login`);
         console.log(req.body);
-        authRepo.login(req.body, (err, user) => {
+        authRepo.login(req.body, (err, token) => {
             if (err) {
                 console.log('*** login error:' + util.inspect(err));
                 res.json({status: false, error: 'Login failed' });
-            } else {
+            } else {                
+                req.session.token = token;
                 console.log('*** login ok');
-                res.json({ status: true, error: null, data: user });
+                res.json({ status: true, error: null, data: token });
             }
         })
     }
