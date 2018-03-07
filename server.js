@@ -31,13 +31,15 @@ class Server {
             cookieName: 'session',
             secret: 'eg[isfd-8yF9-7w23d565675dfg15df{}+Ijsli;;to8',
             // how long the session will live in milliseconds. After that the cookie is invalidated
-            duration: 30 * 60 * 1000,
-            // allow the user to lengthen their session, if the session is 28 minutes old and the user sends
-            // another request activeDuration will extend the session's life. In this case 5 minutes
-            activeDuration: 5 * 60 * 1000,
-            httpOnly: true,
-            secure: true,
-            ephemeral: true
+            duration: 1 * 60 * 1000, // 30 minutes  ---24 * 60 * 60 * 1000 // 24 hours
+            activeDuration: 5 * 60 * 1000, // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
+            cookie: {
+                // allow the user to lengthen their session, if the session is 28 minutes old and the user sends
+                // another request activeDuration will extend the session's life. In this case 5 minutes                
+                httpOnly: true, // when true, cookie is not accessible from javascript
+                secure: false, // when true, cookie will only be sent over SSL. use key 'secureProxy' instead if you handle SSL not in your node process
+                ephemeral: true   
+            }
         }));
         
         process.on('uncaughtException', (err) => {
