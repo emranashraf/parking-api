@@ -5,7 +5,9 @@ const express   = require('express'),
     router      = require('./routes/router'),
     database    = require('./lib/database'),
     app         = express(),
-    port        = 4000;
+    port        = 4000,
+    cors        = require('cors');
+    
 
 class Server {
 
@@ -23,6 +25,7 @@ class Server {
     }
 
     initExpressMiddleWare() {
+        app.use(cors());
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(bodyParser.json());
 

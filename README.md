@@ -13,3 +13,7 @@
 4. Run `npm install` to install app dependencies
 
 5. Run `npm start`
+
+## To Push to GIT run following command
+
+git push -u parking-api master

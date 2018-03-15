@@ -13,7 +13,10 @@ class AuthController  {
         authRepo.login(req.body, (err, token) => {
             if (err) {
                 console.log('*** login error:' + util.inspect(err));
-                res.json({status: false, error: 'Login failed' });
+                // res.json({status: false, error: 'Login failed' });
+                res.status(400).send({
+                    message: 'Login failed'
+                });
             } else {                
                 req.session.token = token;
                 console.log('*** login ok');
