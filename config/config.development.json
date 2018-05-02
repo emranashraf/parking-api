@@ -2,5 +2,10 @@
     "databaseConfig": {
         "host": "localhost",
         "database": "parking"
+    },
+
+    "uploadConfig": {
+        "uploadFolder": "uploads",
+        "uploadUrl": "uploads"
     }
 }

@@ -20,7 +20,7 @@ class AuthController  {
             } else {                
                 req.session.token = token;
                 console.log('*** login ok');
-                res.json({ status: true, error: null, data: token });
+                res.json({ status: true, error: null, data: null });
             }
         })
     }

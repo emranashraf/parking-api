@@ -1,12 +1,13 @@
-const express   = require('express'),
-    bodyParser  = require('body-parser'),
-    session     = require('client-sessions'),
+const express       = require('express'),
+    bodyParser      = require('body-parser'),
+    session         = require('client-sessions'),
 
-    router      = require('./routes/router'),
-    database    = require('./lib/database'),
-    app         = express(),
-    port        = 4000,
-    cors        = require('cors');
+    router          = require('./routes/router'),
+    database        = require('./lib/database'),
+    app             = express(),
+    port            = 4000,
+    cors            = require('cors'),
+    uploadConfig    = require('./lib/configLoader').uploadConfig;
     
 
 class Server {
@@ -27,6 +28,8 @@ class Server {
     initExpressMiddleWare() {
         app.use(cors());
         app.use(bodyParser.urlencoded({ extended: true }));
+        // url will be like this http://localhost/uploads/image.png
+        app.use('/' + uploadConfig.uploadUrl, express.static(uploadConfig.uploadFolder));
         app.use(bodyParser.json());
 
         // session
@@ -34,7 +37,7 @@ class Server {
             cookieName: 'session',
             secret: 'eg[isfd-8yF9-7w23d565675dfg15df{}+Ijsli;;to8',
             // how long the session will live in milliseconds. After that the cookie is invalidated
-            duration: 1 * 60 * 1000, // 30 minutes  ---24 * 60 * 60 * 1000 // 24 hours
+            duration: 24 * 60 * 60 * 1000, // 24 hours
             activeDuration: 5 * 60 * 1000, // if expiresIn < activeDuration, the session will be extended by activeDuration milliseconds
             cookie: {
                 // allow the user to lengthen their session, if the session is 28 minutes old and the user sends
